@@ -13,10 +13,7 @@ public class ParkingSpace
 
     public ParkingSpace(string code, VehicleType allowedVehicleType, bool hasChargingPoint)
     {
-        if(string.IsNullOrWhiteSpace(Code))
-        {
-            throw new ArgumentNullException("O código da vaga é obrigatório");
-        }
+        ArgumentException.ThrowIfNullOrWhiteSpace(code);
 
         Id = Guid.NewGuid();
         Code = code.Trim().ToUpper();
@@ -26,7 +23,7 @@ public class ParkingSpace
         CurrentVehicleType = null;
     }
 
-    public void Occupe(VehicleType incomingVehicle)
+    public void Occupy(VehicleType incomingVehicle)
     {
         if (incomingVehicle == VehicleType.Shared)
             throw new InvalidOperationException("O tipo de um veículo específico não pode ser 'Misto'.");
@@ -48,6 +45,18 @@ public class ParkingSpace
 
         IsOccupied = false;
         CurrentVehicleType = null;
+    }
+
+    public void UpdateDetails(string code, VehicleType allowedVehicleType, bool hasChargingPoint)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(code);
+
+        if (IsOccupied)
+            throw new InvalidOperationException($"Não é possível alterar as configurações da vaga {Code} enquanto ela estiver ocupada.");
+
+        Code = code.Trim().ToUpper();
+        AllowedVehicleType = allowedVehicleType;
+        HasChargingPoint = hasChargingPoint;
     }
 }
 

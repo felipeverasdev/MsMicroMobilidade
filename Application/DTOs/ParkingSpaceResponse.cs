@@ -7,5 +7,6 @@ public record ParkingSpaceResponse(
     string Code,
     VehicleType AllowedVehicleType,
     bool HasChargingPoint,
-    bool IsOccupied
+    bool IsOccupied,
+    VehicleType? CurrentVehicleType
     );

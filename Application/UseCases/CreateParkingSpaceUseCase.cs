@@ -22,7 +22,7 @@ public async Task<ParkingSpaceResponse> ExecuteAsync(CreateParkingSpaceRequest r
             throw new InvalidOperationException($"Já existe uma vaga cadastrada com o código {normalizedCode}.");
         }
 
-        ParkingSpace parkingSpace = new ParkingSpace(
+        var parkingSpace = new ParkingSpace(
             normalizedCode,
             request.AllowedVehicleType,
             request.HasChargingPoint
@@ -35,7 +35,8 @@ public async Task<ParkingSpaceResponse> ExecuteAsync(CreateParkingSpaceRequest r
             parkingSpace.Code,
             parkingSpace.AllowedVehicleType,
             parkingSpace.HasChargingPoint,
-            parkingSpace.IsOccupied
+            parkingSpace.IsOccupied,
+            null
             );
     }
 }
