@@ -15,6 +15,7 @@ builder.Services.AddScoped<GetSpaceByIdUseCase>();
 builder.Services.AddScoped<UpdateSpaceUseCase>();
 builder.Services.AddScoped<OccupySpaceUseCase>();
 builder.Services.AddScoped<ReleaseSpaceUseCase>();
+builder.Services.AddScoped<DeleteSpaceUseCase>();
 
 var app = builder.Build();
 

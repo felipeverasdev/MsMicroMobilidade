@@ -15,9 +15,10 @@ public class SpaceController : ControllerBase
     private readonly UpdateSpaceUseCase _updateSpaceUseCase;
     private readonly OccupySpaceUseCase _occupeSpaceUseCase;
     private readonly ReleaseSpaceUseCase _releaseSpaceUseCase;
+    private readonly DeleteSpaceUseCase _deleteSpaceUseCase;
 
     public SpaceController(CreateParkingSpaceUseCase createUseCase, GetAllSpacesUseCase getAllSpacesUseCase, GetSpaceByIdUseCase getSpaceByIdUseCase,
-        UpdateSpaceUseCase updateSpaceUseCase, OccupySpaceUseCase occupySpaceUseCase, ReleaseSpaceUseCase releaseSpaceUseCase)
+        UpdateSpaceUseCase updateSpaceUseCase, OccupySpaceUseCase occupySpaceUseCase, ReleaseSpaceUseCase releaseSpaceUseCase, DeleteSpaceUseCase deleteSpaceUseCase)
     {
         _createUseCase = createUseCase;
         _getAllSpacesUseCase = getAllSpacesUseCase;
@@ -25,6 +26,7 @@ public class SpaceController : ControllerBase
         _updateSpaceUseCase = updateSpaceUseCase;
         _occupeSpaceUseCase = occupySpaceUseCase;
         _releaseSpaceUseCase = releaseSpaceUseCase;
+        _deleteSpaceUseCase = deleteSpaceUseCase;
     }
 
     [HttpPost]
@@ -118,5 +120,26 @@ public class SpaceController : ControllerBase
             return NotFound(new { error = $"Vaga com ID '{id}' não encontrada." });
 
         return Ok(response);
+    }
+
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        try
+        {
+            var deleted = await _deleteSpaceUseCase.ExecuteAsync(id);
+
+            if (!deleted)
+                return NotFound(new { error = $"Vaga com ID '{id}' não encontrada." });
+
+            return NoContent();
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
     }
 }
