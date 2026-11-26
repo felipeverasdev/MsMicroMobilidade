@@ -1,0 +1,103 @@
+================================================================================
+DOCUMENTO DE REQUISITOS DE PRODUTO (PRD) - MVP v1.0
+Projeto: Hub de Micromobilidade (Gestao de Vagas)
+Solicitante: Product Owner (PO)
+Data: 24/11/2026
+================================================================================
+
+1. CONTEXTO E OBJETIVO
+Precisamos construir a primeira versao (MVP) de uma API REST para gerenciar as 
+vagas de um Hub de Micromobilidade urbana. O espaco atende diferentes modais 
+leves, como bicicletas convencionais, bicicletas eletricas e patinetes.
+
+Neste primeiro momento, queremos validar a operacao basica de cadastro, 
+consulta e controle de ocupacao das vagas, mantendo o sistema simples e 
+preparado para receber novas funcionalidades no futuro (como cobranca por tempo 
+e cadastro de usuarios).
+
+--------------------------------------------------------------------------------
+
+2. HISTORIAS DE USUARIO (USER STORIES)
+
+[US-01] Cadastrar uma nova vaga no Hub
+Como operador do Hub,
+Quero cadastrar uma nova vaga informando seu codigo identificador, o tipo de 
+veiculo permitido e se ela possui ponto de recarga eletrica,
+Para que a vaga fique disponivel para uso no sistema.
+
+Criterios de Aceite:
+- O codigo da vaga e obrigatorio e nao pode ser vazio (ex: "A-01", "B-02").
+- Nao deve ser possivel cadastrar duas vagas com o mesmo codigo.
+- O tipo de veiculo permitido na vaga deve aceitar: Bicicleta, Patinete, 
+  VeiculoEletrico ou Ambos (vaga mista).
+- Toda vaga recem-cadastrada deve iniciar com o status "Livre" (nao ocupada).
+
+[US-02] Listar todas as vagas do Hub
+Como operador do Hub,
+Quero consultar a lista de todas as vagas cadastradas e seus respectivos status,
+Para visualizar rapidamente quais vagas estao livres, quais estao ocupadas e 
+quais suportam cada tipo de veiculo.
+
+Criterios de Aceite:
+- A consulta deve retornar o ID, o codigo da vaga, o tipo permitido, se possui 
+  ponto de recarga e o status atual (Livre ou Ocupada).
+
+[US-03] Consultar detalhes de uma vaga especifica
+Como operador do Hub,
+Quero buscar uma vaga pelo seu identificador unico (ID),
+Para verificar suas especificacoes e disponibilidade antes de direcionar um 
+veiculo.
+
+Criterios de Aceite:
+- Se o ID nao existir, a API deve retornar uma resposta clara informando que a 
+  vaga nao foi encontrada (HTTP 404).
+
+[US-04] Estacionar um veiculo (Ocupar vaga)
+Como operador do Hub,
+Quero registrar a entrada de um veiculo em uma vaga especifica informando o 
+tipo do veiculo que esta entrando,
+Para bloquear a vaga enquanto ela estiver em uso.
+
+Criterios de Aceite:
+- Nao e permitido ocupar uma vaga que ja esteja com status "Ocupada".
+- O sistema deve validar a compatibilidade do veiculo: uma vaga exclusiva de 
+  "Bicicleta" nao pode receber um "Patinete", e vice-versa.
+- Vagas configuradas como "Ambos" aceitam qualquer tipo de veiculo.
+- Se o veiculo informado for do tipo "VeiculoEletrico", a vaga obrigatoriamente 
+  precisa ter ponto de recarga ativo; caso contrario, a operacao deve ser 
+  bloqueada.
+- Ao concluir com sucesso, o status da vaga muda para "Ocupada".
+
+[US-05] Liberar uma vaga
+Como operador do Hub,
+Quero registrar a saida do veiculo de uma vaga ocupada,
+Para que ela volte a ficar disponivel para o proximo usuario.
+
+Criterios de Aceite:
+- Nao deve gerar erro ou inconsistencia tentar liberar uma vaga que ja esta 
+  livre (ou deve avisar que a vaga ja se encontra disponivel).
+- Ao concluir com sucesso, o status da vaga retorna para "Livre".
+
+--------------------------------------------------------------------------------
+
+3. REGRAS DE NEGOCIO RESUMIDAS (DOMINIO)
+
+RN-01 (Unicidade): Cada vaga possui um codigo unico de identificacao fisica.
+RN-02 (Estado Inicial): Toda vaga nasce livre.
+RN-03 (Bloqueio de Duplicidade): Uma vaga ocupada nao pode ser ocupada novamente 
+      ate que seja liberada.
+RN-04 (Compatibilidade de Modal): O veiculo estacionado deve respeitar o tipo 
+      configurado na vaga (salvo vagas mistas do tipo "Ambos").
+RN-05 (Exigencia de Recarga): Veiculos eletricos so podem ocupar vagas que 
+      possuam ponto de recarga instalado.
+
+--------------------------------------------------------------------------------
+
+4. FORA DE ESCOPO PARA ESTA VERSAO (BACKLOG FUTURO)
+Para mantermos a entrega enxuta neste ciclo, NAO implemente agora:
+- Autenticacao e login de operadores ou ciclistas.
+- Persistencia em banco de dados relacional (pode usar armazenamento em memoria).
+- Calculo de tarifa, tempo de permanencia ou multas.
+- Cadastro detalhado do veiculo (marca, cor, numero de serie) ou do proprietario.
+
+================================================================================
