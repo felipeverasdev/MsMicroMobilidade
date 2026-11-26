@@ -10,5 +10,5 @@ public interface IParkingSpaceRepository
     Task<ParkingSpace?> GetByIdAsync(Guid id);
     Task UpdateAsync(ParkingSpace parkingSpace);
     Task<bool> ExistsByCodeExcludingIdAsync(string code, Guid excludedId);
-    // Task DeleteAsync(Guid id);
+    Task DeleteAsync(Guid id);
 }

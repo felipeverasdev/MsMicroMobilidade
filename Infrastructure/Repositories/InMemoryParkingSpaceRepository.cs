@@ -43,4 +43,11 @@ public class InMemoryParkingSpaceRepository : IParkingSpaceRepository
             StringComparison.OrdinalIgnoreCase) && s.Id != excludeId);
         return Task.FromResult(result);
     }
+
+    public Task DeleteAsync(Guid id )
+    {
+        _spacesList.RemoveAll(s => s.Id == id);
+
+        return Task.CompletedTask;
+    }
 }
