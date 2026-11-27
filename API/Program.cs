@@ -1,3 +1,4 @@
+using API.Middlewares;
 using Application.UseCases;
 using Domain.Interfaces;
 using Infrastructure.Repositories;
@@ -7,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddOpenApi();
+
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 builder.Services.AddScoped<IParkingSpaceRepository, InMemoryParkingSpaceRepository>();
 builder.Services.AddScoped<CreateParkingSpaceUseCase>();
@@ -19,8 +23,8 @@ builder.Services.AddScoped<DeleteSpaceUseCase>();
 
 var app = builder.Build();
 
+app.UseExceptionHandler();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

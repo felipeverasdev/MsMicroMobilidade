@@ -1,7 +1,6 @@
 ﻿using Application.DTOs;
 using Application.UseCases;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography.X509Certificates;
 
 namespace API.Controllers;
 
@@ -34,16 +33,9 @@ public class SpaceController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create([FromBody] CreateParkingSpaceRequest request)
     {
-        try
-        {
-            var response = await _createUseCase.ExecuteAsync(request);
+        var response = await _createUseCase.ExecuteAsync(request);
 
-            return CreatedAtAction(nameof(GetSpaceById), new { id = response.Id }, response);
-        }
-        catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
-        {
-            return BadRequest(new { error = ex.Message });
-        }
+        return CreatedAtAction(nameof(GetSpaceById), new { id = response.Id }, response);
     }
 
     [HttpGet]
@@ -73,19 +65,12 @@ public class SpaceController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateSpaceRequest request)
     {
-        try
-        {
-            var response = await _updateSpaceUseCase.ExecuteAsync(id, request);
+        var response = await _updateSpaceUseCase.ExecuteAsync(id, request);
 
-            if (response is null)
-                return NotFound(new { error = $"Vaga com ID '{id}' não encontrada." });
+        if (response is null)
+            return NotFound(new { error = $"Vaga com ID '{id}' não encontrada." });
 
-            return Ok(response);
-        }
-        catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
-        {
-            return BadRequest(new { error = ex.Message });
-        }
+        return Ok(response);
     }
 
     [HttpPatch("{id:guid}/occupy")]
@@ -94,19 +79,12 @@ public class SpaceController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Occupy(Guid id, [FromBody] OccupySpaceRequest request)
     {
-        try
-        {
-            var response = await _occupeSpaceUseCase.ExecuteAsync(id, request);
+        var response = await _occupeSpaceUseCase.ExecuteAsync(id, request);
 
-            if (response is null)
-                return NotFound(new { error = $"Vaga com ID '{id}' não encontrada." });
+        if (response is null)
+            return NotFound(new { error = $"Vaga com ID '{id}' não encontrada." });
 
-            return Ok(response);
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { error = ex.Message });
-        }
+        return Ok(response);
     }
 
     [HttpPatch("{id:guid}/release")]
@@ -128,18 +106,11 @@ public class SpaceController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(Guid id)
     {
-        try
-        {
-            var deleted = await _deleteSpaceUseCase.ExecuteAsync(id);
+        var deleted = await _deleteSpaceUseCase.ExecuteAsync(id);
 
-            if (!deleted)
-                return NotFound(new { error = $"Vaga com ID '{id}' não encontrada." });
+        if (!deleted)
+            return NotFound(new { error = $"Vaga com ID '{id}' não encontrada." });
 
-            return NoContent();
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { error = ex.Message });
-        }
+        return NoContent();
     }
 }

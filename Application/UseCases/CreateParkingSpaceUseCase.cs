@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Interfaces;
 
 namespace Application.UseCases;
@@ -19,7 +20,7 @@ public async Task<ParkingSpaceResponse> ExecuteAsync(CreateParkingSpaceRequest r
 
         if(await _repository.ExistsByCodeAsync(normalizedCode))
         {
-            throw new InvalidOperationException($"Já existe uma vaga cadastrada com o código {normalizedCode}.");
+            throw new ParkingSpaceException($"Já existe uma vaga cadastrada com o código '{normalizedCode}'.");
         }
 
         var parkingSpace = new ParkingSpace(

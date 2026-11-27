@@ -1,4 +1,5 @@
 ﻿using Domain.Enums;
+using Domain.Exceptions;
 
 namespace Domain.Entities;
 
@@ -13,7 +14,8 @@ public class ParkingSpace
 
     public ParkingSpace(string code, VehicleType allowedVehicleType, bool hasChargingPoint)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(code);
+        if (string.IsNullOrWhiteSpace(code))
+            throw new ParkingSpaceException($"O código da vaga é obrigatório.");
 
         Id = Guid.NewGuid();
         Code = code.Trim().ToUpper();
