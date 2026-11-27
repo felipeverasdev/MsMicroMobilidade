@@ -1,7 +1,7 @@
-﻿using Domain.Enums;
-using Domain.Exceptions;
+﻿using MicroMob.Core.Models.Exceptions;
+using MicroMob.Core.Domain.Enums;
 
-namespace Domain.Entities;
+namespace MicroMob.Core.Domain.Entities;
 
 public class ParkingSpace
 {

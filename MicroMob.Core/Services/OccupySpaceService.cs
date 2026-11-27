@@ -1,25 +1,25 @@
-﻿using Application.DTOs;
-using Domain.Interfaces;
+﻿using MicroMob.Core.Models;
+using MicroMob.Core.Interfaces;
 
-namespace Application.UseCases;
+namespace MicroMob.Core.Services;
 
-public class ReleaseSpaceUseCase
+public class OccupySpaceService
 {
     private readonly IParkingSpaceRepository _repository;
 
-    public ReleaseSpaceUseCase(IParkingSpaceRepository repository)
+    public OccupySpaceService(IParkingSpaceRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<ParkingSpaceResponse?> ExecuteAsync(Guid id)
+    public async Task<ParkingSpaceResponse?> ExecuteAsync(Guid id, OccupySpaceRequest request)
     {
         var space = await _repository.GetByIdAsync(id);
 
-        if (space is null)
+        if (space == null)
             return null;
 
-        space.Release();
+        space.Occupy(request.VehicleType);
 
         await _repository.UpdateAsync(space);
 

@@ -1,6 +1,6 @@
-﻿using Domain.Enums;
+﻿using MicroMob.Core.Domain.Enums;
 
-namespace Application.DTOs;
+namespace MicroMob.Core.Models;
 
 public record UpdateSpaceRequest(
     string Code,

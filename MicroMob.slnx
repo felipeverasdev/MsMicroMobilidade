@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="API/MicroMob.API.csproj" />
+  <Project Path="Infrastructure/MicroMob.Infra.csproj" />
+  <Project Path="MicroMob.Core/MicroMob.Core.csproj" />
+</Solution>

@@ -1,4 +1,4 @@
-﻿using Domain.Exceptions;
+﻿using MicroMob.Core.Models.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 

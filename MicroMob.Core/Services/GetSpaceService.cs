@@ -1,13 +1,13 @@
-﻿using Application.DTOs;
-using Domain.Interfaces;
+﻿using MicroMob.Core.Models;
+using MicroMob.Core.Interfaces;
 
-namespace Application.UseCases;
+namespace MicroMob.Core.Services;
 
-public class GetSpaceByIdUseCase
+public class GetSpaceService
 {
     private readonly IParkingSpaceRepository _repository;
 
-    public GetSpaceByIdUseCase(IParkingSpaceRepository repository)
+    public GetSpaceService(IParkingSpaceRepository repository)
     {
         _repository = repository;
     }

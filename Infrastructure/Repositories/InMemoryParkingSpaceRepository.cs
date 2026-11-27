@@ -1,6 +1,6 @@
-﻿using Application.DTOs;
-using Domain.Entities;
-using Domain.Interfaces;
+﻿using MicroMob.Core.Interfaces;
+using MicroMob.Core.Domain.Entities;
+
 
 namespace Infrastructure.Repositories;
 

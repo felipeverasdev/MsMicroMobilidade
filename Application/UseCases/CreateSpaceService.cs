@@ -5,11 +5,11 @@ using Domain.Interfaces;
 
 namespace Application.UseCases;
 
-public class CreateParkingSpaceUseCase
+public class CreateSpaceService
 {
     private readonly IParkingSpaceRepository _repository;
 
-    public CreateParkingSpaceUseCase(IParkingSpaceRepository repository)
+    public CreateSpaceService(IParkingSpaceRepository repository)
     {
         _repository = repository;
     }

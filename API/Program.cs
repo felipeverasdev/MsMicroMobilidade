@@ -1,6 +1,6 @@
 using API.Middlewares;
-using Application.UseCases;
-using Domain.Interfaces;
+using MicroMob.Core.Services;
+using MicroMob.Core.Interfaces;
 using Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,13 +13,13 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 builder.Services.AddScoped<IParkingSpaceRepository, InMemoryParkingSpaceRepository>();
-builder.Services.AddScoped<CreateParkingSpaceUseCase>();
-builder.Services.AddScoped<GetAllSpacesUseCase>();
-builder.Services.AddScoped<GetSpaceByIdUseCase>();
-builder.Services.AddScoped<UpdateSpaceUseCase>();
-builder.Services.AddScoped<OccupySpaceUseCase>();
-builder.Services.AddScoped<ReleaseSpaceUseCase>();
-builder.Services.AddScoped<DeleteSpaceUseCase>();
+builder.Services.AddScoped<CreateSpaceService>();
+builder.Services.AddScoped<GetAllSpacesService>();
+builder.Services.AddScoped<GetSpaceService>();
+builder.Services.AddScoped<UpdateSpaceService>();
+builder.Services.AddScoped<OccupySpaceService>();
+builder.Services.AddScoped<ReleaseSpaceService>();
+builder.Services.AddScoped<DeleteSpaceService>();
 
 var app = builder.Build();
 

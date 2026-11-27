@@ -1,4 +1,4 @@
-﻿namespace Domain.Enums;
+﻿namespace MicroMob.Core.Domain.Enums;
 
 public enum VehicleType
 {

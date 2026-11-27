@@ -1,5 +1,5 @@
-﻿using Application.DTOs;
-using Application.UseCases;
+﻿using MicroMob.Core.Models;
+using MicroMob.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -8,16 +8,16 @@ namespace API.Controllers;
 [Route("api/v1/parking-spaces")]
 public class SpaceController : ControllerBase
 {
-    private readonly CreateParkingSpaceUseCase _createUseCase;
-    private readonly GetAllSpacesUseCase _getAllSpacesUseCase;
-    private readonly GetSpaceByIdUseCase _getSpaceByIdUseCase;
-    private readonly UpdateSpaceUseCase _updateSpaceUseCase;
-    private readonly OccupySpaceUseCase _occupeSpaceUseCase;
-    private readonly ReleaseSpaceUseCase _releaseSpaceUseCase;
-    private readonly DeleteSpaceUseCase _deleteSpaceUseCase;
+    private readonly CreateSpaceService _createUseCase;
+    private readonly GetAllSpacesService _getAllSpacesUseCase;
+    private readonly GetSpaceService _getSpaceByIdUseCase;
+    private readonly UpdateSpaceService _updateSpaceUseCase;
+    private readonly OccupySpaceService _occupeSpaceUseCase;
+    private readonly ReleaseSpaceService _releaseSpaceUseCase;
+    private readonly DeleteSpaceService _deleteSpaceUseCase;
 
-    public SpaceController(CreateParkingSpaceUseCase createUseCase, GetAllSpacesUseCase getAllSpacesUseCase, GetSpaceByIdUseCase getSpaceByIdUseCase,
-        UpdateSpaceUseCase updateSpaceUseCase, OccupySpaceUseCase occupySpaceUseCase, ReleaseSpaceUseCase releaseSpaceUseCase, DeleteSpaceUseCase deleteSpaceUseCase)
+    public SpaceController(CreateSpaceService createUseCase, GetAllSpacesService getAllSpacesUseCase, GetSpaceService getSpaceByIdUseCase,
+        UpdateSpaceService updateSpaceUseCase, OccupySpaceService occupySpaceUseCase, ReleaseSpaceService releaseSpaceUseCase, DeleteSpaceService deleteSpaceUseCase)
     {
         _createUseCase = createUseCase;
         _getAllSpacesUseCase = getAllSpacesUseCase;

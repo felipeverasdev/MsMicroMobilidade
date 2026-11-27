@@ -3,11 +3,11 @@ using Domain.Interfaces;
 
 namespace Application.UseCases;
 
-public class OccupySpaceUseCase
+public class OccupySpaceService
 {
     private readonly IParkingSpaceRepository _repository;
 
-    public OccupySpaceUseCase(IParkingSpaceRepository repository)
+    public OccupySpaceService(IParkingSpaceRepository repository)
     {
         _repository = repository;
     }

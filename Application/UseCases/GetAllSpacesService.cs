@@ -3,11 +3,11 @@ using Domain.Interfaces;
 
 namespace Application.UseCases;
 
-public class GetAllSpacesUseCase
+public class GetAllSpacesService
 {
     private readonly IParkingSpaceRepository _repository;
 
-    public GetAllSpacesUseCase(IParkingSpaceRepository repository)
+    public GetAllSpacesService(IParkingSpaceRepository repository)
     {
         _repository = repository;
     }

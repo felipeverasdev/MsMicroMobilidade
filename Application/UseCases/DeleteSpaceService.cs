@@ -2,11 +2,11 @@
 
 namespace Application.UseCases;
 
-public class DeleteSpaceUseCase
+public class DeleteSpaceService
 {
     private readonly IParkingSpaceRepository _repository;
 
-    public DeleteSpaceUseCase(IParkingSpaceRepository repository)
+    public DeleteSpaceService(IParkingSpaceRepository repository)
     {
         _repository = repository;
     }

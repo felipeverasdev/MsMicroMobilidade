@@ -1,4 +1,4 @@
-﻿namespace Domain.Exceptions;
+﻿namespace MicroMob.Core.Models.Exceptions;
 
 public class ParkingSpaceException : DomainException
 {

@@ -1,6 +1,6 @@
-﻿using Domain.Entities;
+﻿using MicroMob.Core.Domain.Entities;
 
-namespace Domain.Interfaces;
+namespace MicroMob.Core.Interfaces;
 
 public interface IParkingSpaceRepository
 {
